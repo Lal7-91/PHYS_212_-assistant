@@ -1,9 +1,6 @@
-openai
-streamlit
-dataclasses-json
-faiss-cpu
-langchain
-PyPDF2
-streamlit-image-coordinates
-streamlit-option-menu
-tiktoken
+langchain==0.0.335
+openai==0.28.1
+PyPDF2==3.0.1
+python-dotenv==1.0.0
+streamlit==1.27.2
+streamlit_option_menu==0.3.6
