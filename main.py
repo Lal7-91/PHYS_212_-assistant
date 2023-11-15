@@ -216,20 +216,11 @@ def main():
     if selected == "Home":
 
         
-
-        st.markdown("""
-            <style>
-            body {
-            background-color: blue;
-            }
-            </style>
-            """
-        )
         
         c2.image("https://images.shiksha.com/mediadata/images/articles/1519899600phpTP3PsS.jpeg", 
                 width= 600)
         
-        co2.write("#### Welcom to PHYS-212 Assistant")
+        co2.write("#### Welcome to PHYS-212 Assistant")
     
 
     elif selected == "Vectors":
