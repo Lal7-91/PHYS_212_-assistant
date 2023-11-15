@@ -1,2 +1,9 @@
-openia
+openai
 streamlit
+dataclasses-json
+faiss-cpu
+langchain
+PyPDF2
+streamlit-image-coordinates
+streamlit-option-menu
+tiktoken
