@@ -248,14 +248,14 @@ def main():
         
         chois = chois_menu()
         
-        
+        text = load_and_extract_one_pdf(topic)
         if chois == "Summary":
-            text = load_and_extract_one_pdf(topic)
+            
             with st.spinner("Wait ..."):
                 st.write(Summary(text))
             
         elif chois == "Mini quiz":
-             text = load_and_extract_one_pdf(topic)
+             
             quiz = make_quiz()
             
 
@@ -267,7 +267,6 @@ def main():
 
 
         elif chois == "Ask ✨":
-            text = load_and_extract_one_pdf(topic)
             
             question = st.text_input(
             "Ask qustion about this topic",
