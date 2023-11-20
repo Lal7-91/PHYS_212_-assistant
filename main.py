@@ -271,8 +271,8 @@ def main():
              text = load_and_extract_one_pdf(topic)
             
             question = st.text_input(
-            "Ask qustion about this topic",
-            placeholder= ("Ask "))
+                "Ask qustion about this topic",
+                placeholder= ("Ask "))
 
             if question:
                 #conversation_history.append(question)
