@@ -221,7 +221,8 @@ def main():
                 width= 600)
         
         co2.write("#### Welcome to PHYS-212 Assistant")
-    
+
+    #---------------------------------Vectors---------------------------------------#
 
     elif selected == "Vectors":
 
@@ -267,6 +268,8 @@ def main():
 
         elif chois == "Ask ✨":
             
+             text = load_and_extract_one_pdf(topic)
+            
             question = st.text_input(
             "Ask qustion about this topic",
             placeholder= ("Ask "))
@@ -280,7 +283,9 @@ def main():
                     
                     st.write("## Answer")
                     st.write(response)
-        
+
+    #---------------------------------Coulomb`s Law---------------------------------------#
+
 
     elif selected == "Coulomb`s Law":
         topic = "Ch21.pdf"
