@@ -272,7 +272,7 @@ def main():
             placeholder= ("Ask "))
 
             if question:
-                conversation_history.append(question)
+                #conversation_history.append(question)
 
                 with st.spinner("Just a sec .."):
                     
