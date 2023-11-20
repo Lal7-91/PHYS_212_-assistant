@@ -195,6 +195,7 @@ def main():
 
 
     def topics_menu():
+            
             with st.sidebar:
                 selected = option_menu(
                     menu_title="Topics:",  
@@ -220,9 +221,8 @@ def main():
         c2.image("https://images.shiksha.com/mediadata/images/articles/1519899600phpTP3PsS.jpeg", 
                 width= 600)
         
-        co2.write("#### Welcome to PHYS-212 Assistant")
-
-    #---------------------------------Vectors---------------------------------------#
+        co2.write("#### Welcom to PHYS-212 Assistant")
+    
 
     elif selected == "Vectors":
 
@@ -268,14 +268,12 @@ def main():
 
         elif chois == "Ask ✨":
             
-             text = load_and_extract_one_pdf(topic)
-            
             question = st.text_input(
-                "Ask qustion about this topic",
-                placeholder= ("Ask "))
+            "Ask qustion about this topic",
+            placeholder= ("Ask "))
 
             if question:
-                #conversation_history.append(question)
+                
 
                 with st.spinner("Just a sec .."):
                     
@@ -283,9 +281,7 @@ def main():
                     
                     st.write("## Answer")
                     st.write(response)
-
-    #---------------------------------Coulomb`s Law---------------------------------------#
-
+        
 
     elif selected == "Coulomb`s Law":
         topic = "Ch21.pdf"
@@ -321,6 +317,7 @@ def main():
             quiz = make_quiz()
 
             with st.spinner("Wait ..."):
+            
                 questions = quiz.get_questions(text)["questions"]
 
                 quiz.display_questions(questions)
