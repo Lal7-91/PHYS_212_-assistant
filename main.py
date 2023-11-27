@@ -17,14 +17,13 @@ from langchain.vectorstores import faiss
 FAISS = faiss.FAISS
 
 load_dotenv()
-#openai.api_key = os.getenv("OPENAI_API_KEY")
-os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 
 
 def load_and_extract_one_pdf(pdf_file_name):
-    
+
 
     pdf_file_obj = open(os.path.join(os.getcwd(), "data", pdf_file_name), "rb")
     pdf_reader = PdfReader(pdf_file_obj)
@@ -39,21 +38,19 @@ def load_and_extract_one_pdf(pdf_file_name):
 
 
 def Summary(text):
-    
-    promopt = f"""
 
+    promopt = f"""
         You are an expert Physics summrizer. You will be given a topic delimited by four backquotes, 
         Make sure to capture the main points, key arguments, and any supporting evidence presented in the topic.
         Your summary should be informative and well-structured, 3-6 sentences for each main point and use point method if neded. 
         Also use bold words if need and spaces. make sure that is Complete and simple to understand and in best form. Also add the Formulas. use points and short pargraph. 
-
         text = ''''{text}''''
         
         """
 
 
     response = openai.ChatCompletion.create(
-        
+
         model="gpt-3.5-turbo",
         messages=[
             {
@@ -63,11 +60,11 @@ def Summary(text):
         ]
     )
     return response['choices'][0]['message']['content']
-    
+
 
 
 class make_quiz:
-    
+
 
     TEMPLATE = """questions": [
         {
@@ -78,7 +75,6 @@ class make_quiz:
                 "B. To represent specific machine instructions",
                 "C. To simplify the programmer`s task",
                 "D. To prove information to the assembler"
-
             ],
             "correct_answer": "D. To prove information to the assembler"
         }]"""
@@ -114,7 +110,7 @@ class make_quiz:
         st.subheader("End of questions")
 
     def get_questions(self, text):
-        
+
         prompt = f"""
             You are a expert in physics. create a 10 multiple-choice questions (MCQS) based on the text delimted by four backquotes, 
             4 of them definition and the other 6 math qustions from the topic formulas and Numerical equations, 
@@ -122,7 +118,6 @@ class make_quiz:
             the response must be formatted in JSON. Each question contains id, question, options as list, correct_answer.
             this is an example of the response: {self.TEMPLATE}
             the text is : '''' {text}''''
-
             """
 
         response = openai.ChatCompletion.create(
@@ -175,19 +170,19 @@ def ask(file_name, question):
         openai_api_key = openai.api_key
     )
 
-    
+
     prompt = "\n".join(conversation_history) + "\n" + question
 
     response = responce_chain(
         creat_embedding(creat_docs(load_and_extract_one_pdf(file_name))), prompt=prompt, LLM = LLM)
 
-    
+
     #conversation_history.append(response)
 
     return response
 
 
-    
+
 
 
 
@@ -195,7 +190,6 @@ def main():
 
 
     def topics_menu():
-            
             with st.sidebar:
                 selected = option_menu(
                     menu_title="Topics:",  
@@ -212,17 +206,26 @@ def main():
     c1,c2,c3 = st.columns([0.3,3,1])
     co1,co2,co3 = st.columns([1,2,1])
 
-    
+
 
     if selected == "Home":
 
-        
-        
+
+
+        st.markdown("""
+            <style>
+            body {
+            background-color: blue;
+            }
+            </style>
+            """
+        )
+
         c2.image("https://images.shiksha.com/mediadata/images/articles/1519899600phpTP3PsS.jpeg", 
                 width= 600)
-        
+
         co2.write("#### Welcom to PHYS-212 Assistant")
-    
+
 
     elif selected == "Vectors":
 
@@ -231,10 +234,10 @@ def main():
         col1.write("## option menu:")
 
         st.divider()
-        
-        
+
+
         def chois_menu():
-            
+
             chois = option_menu(
                 menu_title=None,  
                 options=["Summary", "Ask ✨", "Mini quiz"],  
@@ -243,49 +246,49 @@ def main():
                 default_index= 1,  
                 orientation="horizontal",
             )
-            
+
             return chois
-        
+
         chois = chois_menu()
-        
+
         text = load_and_extract_one_pdf(topic)
         if chois == "Summary":
-            
+
             with st.spinner("Wait ..."):
                 st.write(Summary(text))
-            
+
         elif chois == "Mini quiz":
-             
+
             quiz = make_quiz()
-            
+
 
             with st.spinner("Wait ..."):
                 questions = quiz.get_questions(text)["questions"]
-            
+
                 quiz.display_questions(questions)
 
 
 
         elif chois == "Ask ✨":
-            
+
             question = st.text_input(
             "Ask qustion about this topic",
             placeholder= ("Ask "))
 
             if question:
-                
+                conversation_history.append(question)
 
                 with st.spinner("Just a sec .."):
-                    
+
                     response = ask(topic, question)
-                    
+
                     st.write("## Answer")
                     st.write(response)
-        
+
 
     elif selected == "Coulomb`s Law":
         topic = "Ch21.pdf"
-        
+
         col1.write("## option menu:")
         st.divider()
 
@@ -304,20 +307,19 @@ def main():
 
         chois = chois_menu()
         text = load_and_extract_one_pdf(topic)
-        
+
 
         if chois == "Summary":
-            
+
             with st.spinner("Wait ..."):
                 st.write(Summary(text))
 
 
         elif chois == "Mini quiz":
-            
+
             quiz = make_quiz()
 
             with st.spinner("Wait ..."):
-            
                 questions = quiz.get_questions(text)["questions"]
 
                 quiz.display_questions(questions)
@@ -325,24 +327,24 @@ def main():
 
 
         elif chois == "Ask ✨":
-            
+
             question = st.text_input(
             "Ask qustion about this topic",
             placeholder= ("Ask "))
 
             if question:
-                
+
                 with st.spinner("Just a sec .."):
-                    
+
                     response = ask(topic, question)
-                    
+
                     st.write("## Answer")
                     st.write(response)
 
 
     elif selected == "Electric Fields":
         topic = "Ch22.pdf"
-        
+
         col1.write("## option menu:")
         st.divider()
 
@@ -361,7 +363,7 @@ def main():
 
         chois = chois_menu()
         text = load_and_extract_one_pdf(topic)
-        
+
 
         if chois == "Summary":
             with st.spinner("Wait ..."):
@@ -369,7 +371,7 @@ def main():
 
 
         elif chois == "Mini quiz":
-            
+
             quiz = make_quiz()
 
             with st.spinner("Wait ..."):
@@ -380,24 +382,24 @@ def main():
 
 
         elif chois == "Ask ✨":
-            
+
             question = st.text_input(
             "Ask qustion about this topic",
             placeholder= ("Ask "))
 
             if question:
-                
+
                 with st.spinner("Just a sec .."):
-                    
+
                     response = ask(topic, question)
-                    
+
                     st.write("## Answer")
                     st.write(response)
 
 
     elif selected == "Electric Potential":
         topic = "Ch24.pdf"
-        
+
         col1.write("## option menu:")
         st.divider()
 
@@ -416,16 +418,16 @@ def main():
 
         chois = chois_menu()
         text = load_and_extract_one_pdf(topic)
-        
+
 
         if chois == "Summary":
-            
+
             with st.spinner("Wait ..."):
                 st.write(Summary(text))
 
 
         elif chois == "Mini quiz":
-            
+
             quiz = make_quiz()
 
             with st.spinner("Wait ..."):
@@ -436,24 +438,24 @@ def main():
 
 
         elif chois == "Ask ✨":
-            
+
             question = st.text_input(
             "Ask qustion about this topic",
             placeholder= ("Ask "))
 
             if question:
-                
+
                 with st.spinner("Just a sec .."):
-                    
+
                     response = ask(topic, question)
-                    
+
                     st.write("## Answer")
                     st.write(response)
 
 
     elif selected == "Capacitance":
-        topic = "CH25.pdf"
-        
+        topic = "Ch25.pdf"
+
         col1.write("## option menu:")
         st.divider()
 
@@ -472,7 +474,7 @@ def main():
 
         chois = chois_menu()
         text = load_and_extract_one_pdf(topic)
-        
+
 
         if chois == "Summary":
             with st.spinner("Wait ..."):
@@ -480,7 +482,7 @@ def main():
 
 
         elif chois == "Mini quiz":
-            
+
             quiz = make_quiz()
 
             with st.spinner("Wait ..."):
@@ -491,23 +493,23 @@ def main():
 
 
         elif chois == "Ask ✨":
-            
+
             question = st.text_input(
             "Ask qustion about this topic",
             placeholder= ("Ask "))
 
             if question:
-                
+
                 with st.spinner("Just a sec .."):
-                    
+
                     response = ask(topic, question)
-                    
+
                     st.write("## Answer")
                     st.write(response)
-                
+
 
     elif selected == "Contacts":
-        
+
         st.divider()
         col2.write(" ## *X* : Lal7_91")
         st.divider()
@@ -515,4 +517,4 @@ def main():
 
 
 if __name__ == "__main__":
-     main()
+     main() 
