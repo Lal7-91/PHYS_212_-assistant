@@ -279,7 +279,7 @@ def main():
 
 
     elif selected == "Capacitance":
-        topic = "Ch25.pdf"
+        topic = "CH25.pdf"
         
         col1.write("## option menu:")
         st.divider()
