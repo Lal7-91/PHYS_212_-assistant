@@ -116,8 +116,7 @@ class make_quiz:
     def get_questions(self, text):
         
         prompt = f"""
-            You are a expert in physics. create a 10 multiple-choice questions (MCQS) based on the text delimted by four backquotes, 
-            4 of them definition and the other 6 math qustions from the topic formulas and Numerical equations, 
+            You are a expert in Networks. create a 10 multiple-choice questions (MCQS) based on the text delimted by four backquotes, 
             try to make them in Multiple difficulties 
             the response must be formatted in JSON. Each question contains id, question, options as list, correct_answer.
             this is an example of the response: {self.TEMPLATE}
