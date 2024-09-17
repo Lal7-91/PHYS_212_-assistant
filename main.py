@@ -24,7 +24,7 @@ def main():
                               "Capacitance", "Current & Resisrtant",
                               "Circutis", "Magnetic Fields",
                               "Magnetic Fields due Currents", 
-                              "Induction & Induutance", "Electromagnatic Oscillations", 
+                              "Networks lec1", "Network lec2", 
                                 "Contacts"
                               ],  
                     
@@ -548,8 +548,8 @@ def main():
                     st.write(response)
 
 
-    elif selected == "Induction & Induutance":
-        topic = "Ch30.pdf"
+    elif selected == "Networks lec1":
+        topic = "networks lec1.pdf"
         
         col1.write("## option menu:")
         st.divider()
@@ -602,8 +602,8 @@ def main():
                     st.write(response)
 
 
-    elif selected == "Electromagnatic Oscillations":
-        topic = "Ch31.pdf"
+    elif selected == "Network lec2":
+        topic = "networks lec2.pdf"
         
         col1.write("## option menu:")
         st.divider()
