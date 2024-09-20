@@ -54,7 +54,7 @@ def Summary(text):
 
     response = openai.ChatCompletion.create(
         
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             {
                 "role": "system",
@@ -84,7 +84,7 @@ class make_quiz:
         }]"""
 
 
-    def __init__(self, model="gpt-3.5-turbo-16k"):
+    def __init__(self, model="gpt-4o-mini-16k"):
         self.model = model
 
     def display_questions(self, questions):
@@ -170,7 +170,7 @@ def ask(file_name, question):
 
     LLM = ChatOpenAI(
         temperature= 1.0,
-        model = "gpt-3.5-turbo",
+        model = "gpt-4o-mini",
         openai_api_key = openai.api_key
     )
 
